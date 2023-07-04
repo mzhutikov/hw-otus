@@ -80,6 +80,7 @@ func TestTop10(t *testing.T) {
 		}
 	})
 }
+
 func TestEqualCountWords(t *testing.T) {
 	tests := []struct {
 		input    string

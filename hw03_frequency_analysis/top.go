@@ -11,20 +11,13 @@ func Top10(text string) []string {
 		count int
 	}
 	s := strings.Fields(text)
-	// разделяем текст на слова
 	rawDict := make(map[string]int)
 	for _, val := range s {
 		rawDict[val] = 0
 	}
-	// считаем сколько раз встречается каждое слово
 	for i := 0; i < len(s); i++ {
-		for key := range rawDict {
-			if s[i] == key {
-				rawDict[key]++
-			}
-		}
+		rawDict[s[i]]++
 	}
-	// сортируем по количеству повторений и алфавиту
 	dictWords := make([]words, 0, len(rawDict))
 	for k, v := range rawDict {
 		dictWords = append(dictWords, words{k, v})
@@ -35,16 +28,13 @@ func Top10(text string) []string {
 		}
 		return dictWords[i].count > dictWords[j].count
 	})
-	// формируем слайс результатов с отбором топ 10 наиболее частов встречающихся слов
-	result := make([]string, 0, 10)
-	if len(dictWords) >= 10 {
-		for i := 0; i < 10; i++ {
-			result = append(result, dictWords[i].word)
-		}
-	} else {
-		for _, val := range dictWords {
-			result = append(result, val.word)
-		}
+	n := 10
+	if len(dictWords) < 10 {
+		n = len(dictWords)
+	}
+	result := make([]string, 0, n)
+	for _, word := range dictWords[:n] {
+		result = append(result, word.word)
 	}
 	return result
 }
