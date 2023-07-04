@@ -80,3 +80,22 @@ func TestTop10(t *testing.T) {
 		}
 	})
 }
+func TestEqualCountWords(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected []string
+	}{
+		{
+			input:    "четыре черненьких чумазеньких чертенка чертили черными чернилами чертеж",
+			expected: []string{"черненьких", "чернилами", "черными", "чертеж", "чертенка", "чертили", "четыре", "чумазеньких"},
+		},
+	}
+
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.input, func(t *testing.T) {
+			result := Top10(tc.input)
+			require.Equal(t, tc.expected, result)
+		})
+	}
+}
